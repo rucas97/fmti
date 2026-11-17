@@ -8,8 +8,9 @@
     :root {
       --navy: #0a1e2e;
       --teal: #3ab0d0;
-      --bg-color: #f8fafc; /* Very light, clean gray-blue */
-      --text-main: #0a1e2e;
+      --bg-color: #f0f4f8; /* Soft, cool off-white background */
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
       --text-muted: #64748b;
     }
 
@@ -22,118 +23,178 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: var(--bg-color);
-      color: var(--text-main);
+      color: var(--navy);
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 24px;
       -webkit-font-smoothing: antialiased;
     }
 
-    .container {
-      max-width: 600px;
+    /* The Professional Card */
+    .card {
+      background-color: var(--card-bg);
+      max-width: 650px;
       width: 100%;
-      text-align: center;
-      animation: fadeIn 1s ease-out;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 20px 40px -15px rgba(10, 30, 46, 0.08), 
+                  0 0 0 1px rgba(10, 30, 46, 0.02);
+      overflow: hidden; /* Keeps the top bar inside the rounded corners */
+      animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
+    /* Top Accent Bar */
+    .card-accent {
+      height: 6px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--navy) 0%, var(--teal) 100%);
+    }
+
+    .card-content {
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Logo - No white box, sits directly on the light background */
+    /* Logo */
     .logo-wrapper {
       margin-bottom: 40px;
+      width: 100%;
       display: flex;
       justify-content: center;
     }
 
     .logo-img {
-      max-width: 100%;
+      width: 100%;
+      max-width: 380px;
       height: auto;
-      width: 100%; max-width: 450px; object-fit: contain;
       display: block;
     }
 
-    /* Minimalist Badge */
+    /* Status Badge */
     .status-badge {
-      display: inline-block;
-      background: rgba(58, 176, 208, 0.1);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(58, 176, 208, 0.08);
+      border: 1px solid rgba(58, 176, 208, 0.3);
       color: #258ca8;
-      padding: 8px 16px;
+      padding: 6px 16px;
       border-radius: 50px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.5px;
       margin-bottom: 24px;
     }
 
-    /* Clean Typography */
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--teal);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(58, 176, 208, 0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(58, 176, 208, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(58, 176, 208, 0); }
+    }
+
+    /* Typography */
     h1 {
-      font-size: 2.8rem;
+      font-size: 2.2rem;
       font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 20px;
+      line-height: 1.25;
+      margin-bottom: 16px;
       color: var(--navy);
       letter-spacing: -0.5px;
     }
 
     .subtitle {
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: var(--text-muted);
       line-height: 1.6;
       font-weight: 400;
-      margin-bottom: 24px;
+      margin-bottom: 40px;
+      max-width: 90%;
     }
 
-    /* Subtle Divider */
-    .divider {
-      width: 60px;
-      height: 3px;
-      background: var(--teal);
-      margin: 0 auto 24px auto;
-      border-radius: 2px;
+    /* Institute Name Footer inside the card */
+    .institute-footer {
+      width: 100%;
+      border-top: 1px solid var(--border-color);
+      padding-top: 24px;
+      margin-top: auto;
     }
 
-    .footer-text {
+    .institute-name {
       font-size: 0.85rem;
-      color: var(--text-muted);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      font-weight: 600;
+      color: var(--navy);
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
 
+    .institute-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    /* Responsive */
     @media (max-width: 600px) {
-      h1 { font-size: 2rem; }
-      .logo-img { max-width: 300px; }
-      .subtitle { font-size: 1rem; }
+      .card-content { padding: 40px 24px; }
+      h1 { font-size: 1.8rem; }
+      .logo-img { max-width: 260px; }
+      .subtitle { font-size: 0.95rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <!-- Logo without the box -->
-    <div class="logo-wrapper">
-      <img src="logo.png" alt="FMTi Logo" class="logo-img">
-    </div>
-
-    <div class="status-badge">Under Construction</div>
-
-    <h1>Something Great<br>is Coming Soon</h1>
+  <div class="card">
+    <!-- Gradient Top Bar -->
+    <div class="card-accent"></div>
     
-    <div class="divider"></div>
+    <div class="card-content">
+      <!-- Logo -->
+      <div class="logo-wrapper">
+        <img src="logo.png" alt="FMTi Logo" class="logo-img">
+      </div>
 
-    <p class="subtitle">
-      We are building the new digital home for the <br>
-      <strong>Management Study and Tech Development Institute</strong>.
-    </p>
+      <!-- Status -->
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        Under Construction
+      </div>
 
-    <div class="footer-text">FMTI</div>
+      <!-- Heading -->
+      <h1>Something Great<br>is Coming Soon</h1>
+      
+      <!-- Subtitle -->
+      <p class="subtitle">
+        We are currently building the new digital home for the Management Study and Tech Development Institute. Stay tuned for updates.
+      </p>
+
+      <!-- Structured Footer -->
+      <div class="institute-footer">
+        <div class="institute-name">FMTI</div>
+        <div class="institute-sub">Management Study & Tech Development Institute</div>
+      </div>
+    </div>
   </div>
 
 </body>
